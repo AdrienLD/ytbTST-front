@@ -5,6 +5,7 @@ import { useParams } from 'next/navigation';
 import { fetchChannelInfo } from '@/app/api';
 import Image from 'next/image';
 import ChannelStats from '@/app/components/channel_stats';
+import ChannelVideos from '@/app/components/channel_videos';
 
 const ChannelPage: React.FC = () => {
     const { id } = useParams();
@@ -15,7 +16,6 @@ const ChannelPage: React.FC = () => {
         const fetchData = async () => {
             if (typeof id !== "string") return;
             const data = await fetchChannelInfo(id);
-            console.log(data);
             setChannelInfo(data);
         };
         fetchData();
@@ -87,6 +87,7 @@ const ChannelPage: React.FC = () => {
                 </div>
             )}
             <ChannelStats />
+            <ChannelVideos />
         </div>
 
     );

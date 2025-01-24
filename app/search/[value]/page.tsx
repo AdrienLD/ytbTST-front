@@ -15,6 +15,7 @@ export default function SearchPage() {
         const fetchData = async () => {
             if (typeof value !== "string") return;
             const test = await research(value);
+            console.log(test);
             setResults(test);
         };
         fetchData();
@@ -24,7 +25,7 @@ export default function SearchPage() {
     const handleSearch = async (index: number) => {
         if (!results.items[index].existsInDB) return
         if (results.items[index].id.kind === "youtube#video") {
-            router.push(`/video/${index}`);
+            router.push(`/video/${results.items[index].id.videoId}`);
         } else router.push(`/channel/${results.items[index].snippet.channelId}`);
     }
 

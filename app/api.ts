@@ -55,3 +55,45 @@ export function fetchChannelStats(channelId: string) {
         console.error("Erreur :", error);
     }
 }
+
+export function fetchChannelVideo(channelId: string) {
+    try {
+        return axios
+            .get("https://ytst.flgr.fr/ytbtst/videosFromChannel", {
+                params: { channelId },
+                withCredentials: true,
+            })
+            .then((response) => {return response.data})
+            .catch((error) => console.error("Erreur :", error));
+    } catch (error) {
+        console.error("Erreur :", error);
+    }
+}
+
+export function fetchVideoInfo(videoId: string) {
+    try {
+        return axios
+            .get("https://ytst.flgr.fr/ytbtst/videoInfo", {
+                params: { videoId },
+                withCredentials: true,
+            })
+            .then((response) => {return response.data})
+            .catch((error) => console.error("Erreur :", error));
+    } catch (error) {
+        console.error("Erreur :", error);
+    }
+}
+
+export function fetchVideoStats(videoId: string) {
+    try {
+        return axios
+            .get("https://ytst.flgr.fr/ytbtst/videoStats", {
+                params: { videoId },
+                withCredentials: true,
+            })
+            .then((response) => {return response.data})
+            .catch((error) => console.error("Erreur :", error));
+    } catch (error) {
+        console.error("Erreur :", error);
+    }
+}
