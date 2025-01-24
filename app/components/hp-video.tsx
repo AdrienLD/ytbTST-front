@@ -4,7 +4,6 @@ import Image from "next/image"
 
 
 export function HPVideo({ item }: { item: any }) {
-  
     return (
       <>
         <div className="w-48 h-full overflow-hidden rounded-md flex-shrink-0">
@@ -35,7 +34,6 @@ export function HPVideo({ item }: { item: any }) {
   }
 
 export function HPChannel({ item }: { item: any }) {
-  
     return (
       <>
         <div className="flex items-center w-48 h-full overflow-hidden rounded-md flex-shrink-0 relative">

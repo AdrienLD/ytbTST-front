@@ -27,3 +27,31 @@ export function areChannelInBDD(channelIDs: string[]) {
         console.error("Erreur :", error);
     }
 }
+
+export function fetchChannelInfo(channelId: string) {
+    try {
+        return axios
+            .get("https://ytst.flgr.fr/ytbtst/channelInfo", {
+                params: { channelId },
+                withCredentials: true,
+            })
+            .then((response) => {return response.data})
+            .catch((error) => console.error("Erreur :", error));
+    } catch (error) {
+        console.error("Erreur :", error);
+    }
+}
+
+export function fetchChannelStats(channelId: string) {
+    try {
+        return axios
+            .get("https://ytst.flgr.fr/ytbtst/channelStats", {
+                params: { channelId },
+                withCredentials: true,
+            })
+            .then((response) => {return response.data})
+            .catch((error) => console.error("Erreur :", error));
+    } catch (error) {
+        console.error("Erreur :", error);
+    }
+}
