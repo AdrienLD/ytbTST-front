@@ -3,8 +3,7 @@
 import React from 'react'
 import { useParams, useRouter } from 'next/navigation'
 import { fetchChannelVideo } from '@/app/api'
-import Image from 'next/image';
-import { DevicePhoneMobileIcon } from '@heroicons/react/16/solid';
+import { VideoFromDB } from './tuiles';
 
 const ChannelVideos: React.FC = () => {
     const { id } = useParams();
@@ -30,34 +29,10 @@ const ChannelVideos: React.FC = () => {
             {
                 videosList && videosList.map((video, index) => (
                     <div
-                key={index}
-                className="flex h-[140px] gap-4 p-4 bg-white shadow rounded-lg items-center hover:shadow-md transition-shadow cursor-pointer"
-                onClick={() => handleSearch(video.video_id)}
-                >
-                    
-                        <div className="w-48 h-full overflow-hidden rounded-md flex-shrink-0">
-                            <Image
-                                src={video.thumbnail_url}
-                                alt="Thumbnail"
-                                width={200}
-                                height={120}
-                                className="object-cover w-full h-full"
-                            />
-                        </div>
-                        <div className="flex flex-col justify-center gap-2">
-                            <h2 className="text-lg font-semibold text-gray-800">
-                            {video.title}
-                            </h2>
-                            <p className="text-sm text-gray-600 line-clamp-2">
-                            {video.channelTitle}
-                            </p>
-                            <DevicePhoneMobileIcon className={`h-6 w-6 transition-transform ${
-                                video.is_short ? "rotate-0" : "rotate-90"
-                                }`} 
-                            />
-                        </div>
-
-
+                        key={index}
+                        onClick={() => handleSearch(video.video_id)}
+                    >
+                        <VideoFromDB item={video} />
                     </div>
                 ))
             }

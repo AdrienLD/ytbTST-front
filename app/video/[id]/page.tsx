@@ -1,26 +1,26 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client"
-import React from 'react';
-import { useParams } from 'next/navigation';
-import { fetchVideoInfo } from '@/app/api';
-import Image from 'next/image';
-import { DevicePhoneMobileIcon } from '@heroicons/react/16/solid';
-import VideoStats from '@/app/components/video_stats';
+import React from 'react'
+import { useParams } from 'next/navigation'
+import { fetchVideoInfo } from '@/app/api'
+import Image from 'next/image'
+import { DevicePhoneMobileIcon } from '@heroicons/react/16/solid'
+import VideoStats from '@/app/components/video_stats'
 
 const VideoPage: React.FC = () => {
-    const { id } = useParams();
+    const { id } = useParams()
     const [ VideoInfo, setVideoInfo ] = React.useState<any>();
     const [showFullDescription, setShowFullDescription] = React.useState(false)
 
     React.useEffect(() => {
         const fetchData = async () => {
-            if (typeof id !== "string") return;
-            const data = await fetchVideoInfo(id);
-            console.log(data);
-            setVideoInfo(data);
-        };
-        fetchData();
-    }, [id]);
+            if (typeof id !== "string") return
+            const data = await fetchVideoInfo(id)
+            console.log(data)
+            setVideoInfo(data)
+        }
+        fetchData()
+    }, [id])
 
     return (
         <div className="p-6 bg-gray-50 rounded-lg ">
@@ -36,7 +36,11 @@ const VideoPage: React.FC = () => {
                         />
                     </div>
                     <div className="flex-grow">
-                    <h1 className="text-2xl font-bold text-gray-800">{VideoInfo.title}</h1>
+                    <h1 className="text-2xl font-bold text-gray-800">
+                        <a href={`https://www.youtube.com/watch?v=${VideoInfo.video_id}`} target='_blank'>
+                        {VideoInfo.title}
+                        </a>
+                    </h1>
                     <p className="text-sm text-gray-600 mt-2">
                         <strong>Description :</strong>{" "}
                         {showFullDescription

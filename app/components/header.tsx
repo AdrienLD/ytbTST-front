@@ -17,6 +17,10 @@ export default function Header() {
         if (value !== "") router.push(`/search/${encodeURIComponent(value)}`);
     }
 
+    const handleHomepage = async () => {
+        router.push(`/`);
+    }
+
     const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key === "Enter") {
             handleSearch();
@@ -25,7 +29,7 @@ export default function Header() {
 
     return (
         <div className="flex gap-10 p-7 items-center bg-slate-100 shadow-md sticky top-0 z-10">
-            <Image src="/logo.png" alt="Logo" width={100} height={100} />
+            <Image src="/logo.png" alt="Logo" className="cursor-pointer" width={100} height={100} onClick={handleHomepage}/>
 
             <Input 
                 placeholder="Recherche" 
@@ -40,5 +44,5 @@ export default function Header() {
                 </AvatarFallback>
             </Avatar>
         </div>
-    );
+    )
 }

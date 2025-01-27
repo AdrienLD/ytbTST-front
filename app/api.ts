@@ -1,11 +1,18 @@
 import axios from "axios";
 
+const instance = axios.create({
+    baseURL: "https://ytst-back.flgr.fr", // URL de votre backend
+    withCredentials: true, // Inclure les cookies si nécessaire
+    headers: {
+      "Content-Type": "application/json",
+    },
+})
+
 export function research(searchValue: string) {
     try {
-        return axios
-            .get("https://ytst.flgr.fr/ytbtst/research", {
+        return instance
+            .get("https://ytst-back.flgr.fr/ytbtst/research", {
                 params: { searchValue },
-                withCredentials: true,
             })
             .then((response) => {return response.data})
             .catch((error) => console.error("Erreur :", error));
@@ -16,10 +23,9 @@ export function research(searchValue: string) {
 
 export function areChannelInBDD(channelIDs: string[]) {
     try {
-        return axios
-            .get("https://ytst.flgr.fr/ytbtst/areChannelsInBDD", {
+        return instance
+            .get("https://ytst-back.flgr.fr/ytbtst/areChannelsInBDD", {
                 params: { channelIDs },
-                withCredentials: true,
             })
             .then((response) => {return response.data})
             .catch((error) => console.error("Erreur :", error));
@@ -30,10 +36,9 @@ export function areChannelInBDD(channelIDs: string[]) {
 
 export function fetchChannelInfo(channelId: string) {
     try {
-        return axios
-            .get("https://ytst.flgr.fr/ytbtst/channelInfo", {
+        return instance
+            .get("https://ytst-back.flgr.fr/ytbtst/channelInfo", {
                 params: { channelId },
-                withCredentials: true,
             })
             .then((response) => {return response.data})
             .catch((error) => console.error("Erreur :", error));
@@ -44,10 +49,9 @@ export function fetchChannelInfo(channelId: string) {
 
 export function fetchChannelStats(channelId: string) {
     try {
-        return axios
-            .get("https://ytst.flgr.fr/ytbtst/channelStats", {
+        return instance
+            .get("https://ytst-back.flgr.fr/ytbtst/channelStats", {
                 params: { channelId },
-                withCredentials: true,
             })
             .then((response) => {return response.data})
             .catch((error) => console.error("Erreur :", error));
@@ -58,10 +62,9 @@ export function fetchChannelStats(channelId: string) {
 
 export function fetchChannelVideo(channelId: string) {
     try {
-        return axios
-            .get("https://ytst.flgr.fr/ytbtst/videosFromChannel", {
+        return instance
+            .get("https://ytst-back.flgr.fr/ytbtst/videosFromChannel", {
                 params: { channelId },
-                withCredentials: true,
             })
             .then((response) => {return response.data})
             .catch((error) => console.error("Erreur :", error));
@@ -72,10 +75,9 @@ export function fetchChannelVideo(channelId: string) {
 
 export function fetchVideoInfo(videoId: string) {
     try {
-        return axios
-            .get("https://ytst.flgr.fr/ytbtst/videoInfo", {
+        return instance
+            .get("https://ytst-back.flgr.fr/ytbtst/videoInfo", {
                 params: { videoId },
-                withCredentials: true,
             })
             .then((response) => {return response.data})
             .catch((error) => console.error("Erreur :", error));
@@ -86,10 +88,9 @@ export function fetchVideoInfo(videoId: string) {
 
 export function fetchVideoStats(videoId: string) {
     try {
-        return axios
-            .get("https://ytst.flgr.fr/ytbtst/videoStats", {
+        return instance
+            .get("https://ytst-back.flgr.fr/ytbtst/videoStats", {
                 params: { videoId },
-                withCredentials: true,
             })
             .then((response) => {return response.data})
             .catch((error) => console.error("Erreur :", error));
@@ -100,8 +101,32 @@ export function fetchVideoStats(videoId: string) {
 
 export function addChannel(channelId: string) {
     try {
-        return axios
-            .post("https://ytst.flgr.fr/ytbtst/addChannel", { channelId })
+        return instance
+            .post("https://ytst-back.flgr.fr/ytbtst/addChannel", { channelId })
+            .then((response) => {return response.data})
+            .catch((error) => console.error("Erreur :", error));
+    } catch (error) {
+        console.error("Erreur :", error);
+    }
+}
+
+export function fetchLastChannels() {
+    try {
+        return instance
+            .get("https://ytst-back.flgr.fr/ytbtst/recuperateLastFollowedChannels", {
+            })
+            .then((response) => {return response.data})
+            .catch((error) => console.error("Erreur :", error));
+    } catch (error) {
+        console.error("Erreur :", error);
+    }
+}
+
+export function fetchLastVideos() {
+    try {
+        return instance
+            .get("https://ytst-back.flgr.fr/ytbtst/recuperateLastFollowedVideos", {
+            })
             .then((response) => {return response.data})
             .catch((error) => console.error("Erreur :", error));
     } catch (error) {

@@ -36,6 +36,7 @@ const VideoStats: React.FC = () => {
     } satisfies ChartConfig
 
     const minMaxValues = (data: any[], key: string) => {
+        if (!data || data.length === 0) return [0, 0]
         const values = data.map((item) => item[key])
         const max = Math.max(...values)
         return [0, max]

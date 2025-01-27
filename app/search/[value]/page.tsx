@@ -1,14 +1,18 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client"
 import { addChannel, research } from "@/app/api"
-import { HPChannel, HPVideo } from "@/app/components/hp-video"
+import { ChannelFromYtb, VideoFromYtb } from "@/app/components/tuiles"
 import { useParams } from "next/navigation"
 import { useEffect, useState } from "react"
     import { useRouter } from 'next/navigation'
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog"
+import { Button } from "@/components/ui/button"
 
 export default function SearchPage() {
     const { value } = useParams()
     const [results, setResults] = useState<any>()
+    const [isDialogOpen, setIsDialogOpen] = useState(false)
+    const [dialogContent, setDialogContent] = useState<any>(null);
     const router = useRouter()
 
     const fetchData = async () => {
@@ -34,9 +38,16 @@ export default function SearchPage() {
 
     const subscribe = async (index: any) => {
         if (index.id.kind === "youtube#channel") {
-            await addChannel(index.snippet.channelId)
-            fetchData()
+            setDialogContent(index)
+            setIsDialogOpen(true)
         }
+    }
+
+    const handleAddChannel = async (channelId: string) => {
+        await addChannel(channelId)
+        setIsDialogOpen(false)
+
+        fetchData()
     }
 
     return (
@@ -50,12 +61,36 @@ export default function SearchPage() {
                 >
                 {
                 results.items[index].id.kind === "youtube#video" ? (
-                    <HPVideo item={results.items[index]} />
+                    <VideoFromYtb item={results.items[index]} />
                 ) : (
-                    <HPChannel item={results.items[index]} />
+                    <ChannelFromYtb item={results.items[index]} />
                 )}
                 </div>
             ))}
+            <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+                <DialogContent>
+                <DialogHeader>
+                    {dialogContent && (
+                <>
+                    <DialogTitle>
+                    Voulez-vous vraiment suivre la chaîne :{" "}
+                    <span className="font-bold">
+                        {dialogContent.snippet.title}
+                    </span>
+                    ?
+                    </DialogTitle>
+                    <DialogDescription>
+                    <Button
+                        onClick={() =>handleAddChannel(dialogContent.snippet.channelId)}
+                    >
+                        Suivre
+                    </Button>
+                    </DialogDescription>
+                </>
+                )}
+                </DialogHeader>
+                </DialogContent>
+            </Dialog>
         </div>
     )
 }

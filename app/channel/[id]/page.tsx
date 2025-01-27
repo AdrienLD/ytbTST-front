@@ -36,7 +36,11 @@ const ChannelPage: React.FC = () => {
                 </div>
 
                 <div className="flex-grow">
-                    <h1 className="text-2xl font-bold text-gray-800">{channelInfo.name}</h1>
+                    <h1 className="text-2xl font-bold text-gray-800">
+                        <a href={`https://www.youtube.com/channel/${channelInfo.channel_id}`} target='_blank'>
+                        {channelInfo.name}
+                        </a>
+                    </h1>
                     <p className="text-sm text-gray-600 mt-2">
                         <strong>Description :</strong>{" "}
                         {showFullDescription
