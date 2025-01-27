@@ -61,12 +61,10 @@ const VideoPage: React.FC = () => {
                         minute: "numeric",
                         })}
                     </p>
-                    <p>
                         <DevicePhoneMobileIcon className={`h-6 w-6 transition-transform ${
-                            VideoInfo.is_short ? "rotate-90" : "rotate-0"
+                            VideoInfo.is_short ? "rotate-0" : "rotate-90"
                             }`} 
                         />
-                    </p>
                     </div>
                 </div>
             )}

@@ -14,11 +14,11 @@ export default function Header() {
     const router = useRouter();
 
     const handleSearch = async () => {
-        router.push(`/search/${encodeURIComponent(value)}`);
+        if (value !== "") router.push(`/search/${encodeURIComponent(value)}`);
     }
 
     const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-        if (e.key === "Enter" && value !== "") {
+        if (e.key === "Enter") {
             handleSearch();
         }
     }

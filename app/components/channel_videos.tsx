@@ -4,6 +4,7 @@ import React from 'react'
 import { useParams, useRouter } from 'next/navigation'
 import { fetchChannelVideo } from '@/app/api'
 import Image from 'next/image';
+import { DevicePhoneMobileIcon } from '@heroicons/react/16/solid';
 
 const ChannelVideos: React.FC = () => {
     const { id } = useParams();
@@ -14,8 +15,7 @@ const ChannelVideos: React.FC = () => {
         const fetchData = async () => {
             if (typeof id !== "string") return
             const data = await fetchChannelVideo(id)
-            console.log(data)
-            data.sort((a: any, b: any) => new Date(b.added_at).getTime() - new Date(a.added_at).getTime());
+            if (data)data.sort((a: any, b: any) => new Date(b.added_at).getTime() - new Date(a.added_at).getTime());
             setVideosList(data)
         };
         fetchData();
@@ -28,7 +28,7 @@ const ChannelVideos: React.FC = () => {
     return (
         <div className="flex flex-col gap-6 p-10">
             {
-                videosList.map((video, index) => (
+                videosList && videosList.map((video, index) => (
                     <div
                 key={index}
                 className="flex h-[140px] gap-4 p-4 bg-white shadow rounded-lg items-center hover:shadow-md transition-shadow cursor-pointer"
@@ -51,7 +51,12 @@ const ChannelVideos: React.FC = () => {
                             <p className="text-sm text-gray-600 line-clamp-2">
                             {video.channelTitle}
                             </p>
+                            <DevicePhoneMobileIcon className={`h-6 w-6 transition-transform ${
+                                video.is_short ? "rotate-0" : "rotate-90"
+                                }`} 
+                            />
                         </div>
+
 
                     </div>
                 ))

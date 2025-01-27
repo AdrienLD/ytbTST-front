@@ -97,3 +97,14 @@ export function fetchVideoStats(videoId: string) {
         console.error("Erreur :", error);
     }
 }
+
+export function addChannel(channelId: string) {
+    try {
+        return axios
+            .post("https://ytst.flgr.fr/ytbtst/addChannel", { channelId })
+            .then((response) => {return response.data})
+            .catch((error) => console.error("Erreur :", error));
+    } catch (error) {
+        console.error("Erreur :", error);
+    }
+}

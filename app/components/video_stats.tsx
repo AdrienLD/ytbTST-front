@@ -47,123 +47,125 @@ const VideoStats: React.FC = () => {
     
     return (
         <div className="p-6 bg-gray-50 rounded-lg">
-          
-            <ChartContainer config={chartConfig} className="h-[500px] w-full">
-                <AreaChart
-                    data={videoStats}
-                    margin={{
-                        top: 10,
-                        bottom: 10,
-                        left: 12,
-                        right: 12,
-                    }}
-                >
-                    <defs>
-                        <linearGradient id="vieColor" x1="0" y1="0" x2="0" y2="1">
-                            <stop offset="5%" stopColor={chartConfig.views_count.color} stopOpacity={0.7}/>
-                            <stop offset="95%" stopColor={chartConfig.views_count.color} stopOpacity={0}/>
-                        </linearGradient>
-                        <linearGradient id="likColor" x1="0" y1="0" x2="0" y2="1">
-                            <stop offset="5%" stopColor={chartConfig.likes_count.color} stopOpacity={0.1}/>
-                            <stop offset="95%" stopColor={chartConfig.likes_count.color} stopOpacity={0}/>
-                        </linearGradient>
-                        <linearGradient id="comColor" x1="0" y1="0" x2="0" y2="1">
-                            <stop offset="5%" stopColor={chartConfig.comments_count.color} stopOpacity={0.1}/>
-                            <stop offset="95%" stopColor={chartConfig.comments_count.color} stopOpacity={0}/>
-                        </linearGradient>
-                    </defs>
-                    <CartesianGrid vertical={false} />
-                    <Legend verticalAlign="bottom" height={36} iconType="circle" />
-                    <XAxis
-                        dataKey="recorded_at"
-                        tickLine={false}
-                        axisLine={false}
-                        tickMargin={8}
-                        tickFormatter={(value) =>
-                            value ? new Date(value).toLocaleDateString("fr-FR", {
-                            day: "2-digit",
-                            month: "short",
-                            year: "numeric",
-                            }) : ""
+            { 
+                videoStats && videoStats.length > 0 &&
+                <ChartContainer config={chartConfig} className="h-[500px] w-full">
+                    <AreaChart
+                        data={videoStats}
+                        margin={{
+                            top: 10,
+                            bottom: 10,
+                            left: 12,
+                            right: 12,
+                        }}
+                    >
+                        <defs>
+                            <linearGradient id="vieColor" x1="0" y1="0" x2="0" y2="1">
+                                <stop offset="5%" stopColor={chartConfig.views_count.color} stopOpacity={0.7}/>
+                                <stop offset="95%" stopColor={chartConfig.views_count.color} stopOpacity={0}/>
+                            </linearGradient>
+                            <linearGradient id="likColor" x1="0" y1="0" x2="0" y2="1">
+                                <stop offset="5%" stopColor={chartConfig.likes_count.color} stopOpacity={0.1}/>
+                                <stop offset="95%" stopColor={chartConfig.likes_count.color} stopOpacity={0}/>
+                            </linearGradient>
+                            <linearGradient id="comColor" x1="0" y1="0" x2="0" y2="1">
+                                <stop offset="5%" stopColor={chartConfig.comments_count.color} stopOpacity={0.1}/>
+                                <stop offset="95%" stopColor={chartConfig.comments_count.color} stopOpacity={0}/>
+                            </linearGradient>
+                        </defs>
+                        <CartesianGrid vertical={false} />
+                        <Legend verticalAlign="bottom" height={36} iconType="circle" />
+                        <XAxis
+                            dataKey="recorded_at"
+                            tickLine={false}
+                            axisLine={false}
+                            tickMargin={8}
+                            tickFormatter={(value) =>
+                                value ? new Date(value).toLocaleDateString("fr-FR", {
+                                day: "2-digit",
+                                month: "short",
+                                year: "numeric",
+                                }) : ""
+                            }
+                        />
+                        <YAxis
+                            yAxisId="views"
+                            orientation="right"
+                            tickLine={false}
+                            axisLine={false}
+                            tickFormatter={(value) => value}
+                            domain={domainViews}
+                            style={{
+                                fill: chartConfig.views_count.color, // Couleur des ticks
+                                color: chartConfig.views_count.color, // Couleur des labels (si nécessaire)
+                            }}
+                        />
+                        <YAxis
+                            yAxisId="likes"
+                            orientation="left"
+                            tickLine={false}
+                            axisLine={false}
+                            tickFormatter={(value) => value}
+                            domain={domainLikes}
+                            style={{
+                                fill: chartConfig.likes_count.color, // Couleur des ticks
+                                color: chartConfig.likes_count.color, // Couleur des labels (si nécessaire)
+                            }}
+                        />
+                        <YAxis
+                            yAxisId="comments"
+                            orientation="left"
+                            tickLine={false}
+                            axisLine={false}
+                            tickFormatter={(value) => value}
+                            domain={domainComments}
+                            style={{
+                                fill: chartConfig.comments_count.color,
+                                color: chartConfig.comments_count.color,
+                            }}
+                            dx={20}
+                        />
+                        <ChartTooltip
+                        cursor={false}
+                        labelFormatter={(label) =>
+                            new Date(label).toLocaleDateString('fr-FR', {
+                            day: '2-digit',
+                            month: 'short',
+                            year: 'numeric',
+                            })
                         }
-                    />
-                    <YAxis
-                        yAxisId="views"
-                        orientation="right"
-                        tickLine={false}
-                        axisLine={false}
-                        tickFormatter={(value) => value}
-                        domain={domainViews}
-                        style={{
-                            fill: chartConfig.views_count.color, // Couleur des ticks
-                            color: chartConfig.views_count.color, // Couleur des labels (si nécessaire)
-                        }}
-                    />
-                    <YAxis
-                        yAxisId="likes"
-                        orientation="left"
-                        tickLine={false}
-                        axisLine={false}
-                        tickFormatter={(value) => value}
-                        domain={domainLikes}
-                        style={{
-                            fill: chartConfig.likes_count.color, // Couleur des ticks
-                            color: chartConfig.likes_count.color, // Couleur des labels (si nécessaire)
-                        }}
-                    />
-                    <YAxis
-                        yAxisId="comments"
-                        orientation="left"
-                        tickLine={false}
-                        axisLine={false}
-                        tickFormatter={(value) => value}
-                        domain={domainComments}
-                        style={{
-                            fill: chartConfig.comments_count.color,
-                            color: chartConfig.comments_count.color,
-                        }}
-                        dx={20}
-                    />
-                    <ChartTooltip
-                    cursor={false}
-                    labelFormatter={(label) =>
-                        new Date(label).toLocaleDateString('fr-FR', {
-                          day: '2-digit',
-                          month: 'short',
-                          year: 'numeric',
-                        })
-                    }
-                    content={<ChartTooltipContent indicator="dot" />}
-                    />
-                    <Area
-                        dataKey="views_count"
-                        type="monotone"
-                        strokeWidth={2}
-                        fill="url(#vieColor)"
-                        stroke={chartConfig.views_count.color}
-                        name={chartConfig.views_count.label}
-                        yAxisId="views"
-                    />
-                    <Area
-                        dataKey="likes_count"
-                        type="monotone"
-                        strokeWidth={2}
-                        fill="url(#likColor)"
-                        stroke={chartConfig.likes_count.color}
-                        name={chartConfig.likes_count.label}
-                        yAxisId="likes"
-                    />
-                    <Area
-                        dataKey="comments_count"
-                        type="monotone"
-                        strokeWidth={2}
-                        fill="url(#comColor)"
-                        stroke={chartConfig.comments_count.color}
-                        name={chartConfig.comments_count.label}
-                        yAxisId="comments"
-                    />
-                </AreaChart>
-            </ChartContainer>
+                        content={<ChartTooltipContent indicator="dot" />}
+                        />
+                        <Area
+                            dataKey="views_count"
+                            type="monotone"
+                            strokeWidth={2}
+                            fill="url(#vieColor)"
+                            stroke={chartConfig.views_count.color}
+                            name={chartConfig.views_count.label}
+                            yAxisId="views"
+                        />
+                        <Area
+                            dataKey="likes_count"
+                            type="monotone"
+                            strokeWidth={2}
+                            fill="url(#likColor)"
+                            stroke={chartConfig.likes_count.color}
+                            name={chartConfig.likes_count.label}
+                            yAxisId="likes"
+                        />
+                        <Area
+                            dataKey="comments_count"
+                            type="monotone"
+                            strokeWidth={2}
+                            fill="url(#comColor)"
+                            stroke={chartConfig.comments_count.color}
+                            name={chartConfig.comments_count.label}
+                            yAxisId="comments"
+                        />
+                    </AreaChart>
+                </ChartContainer>
+            }
         </div>
     );
 };
